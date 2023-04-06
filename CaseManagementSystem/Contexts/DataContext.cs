@@ -41,9 +41,6 @@ namespace CaseManagementSystem.Contexts
 
         #endregion
 
-        public DbSet<AddressEntity> Addresses { get; set; } = null!;
-        public DbSet<CustomerEntity> Customers { get; set; } = null!;
-        public DbSet<ProductEntity> Products { get; set; } = null!;
 
     }
 }
