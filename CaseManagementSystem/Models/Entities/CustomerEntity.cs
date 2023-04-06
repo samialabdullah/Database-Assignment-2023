@@ -1,17 +1,23 @@
-﻿namespace CaseManagementSystem.Models.Entities
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CaseManagementSystem.Models.Entities;
+
+[Index(nameof(Email), IsUnique = true)]
+internal class CustomerEntity 
 {
-    internal class CustomerEntity 
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string FirstName { get; set; } = string.Empty;
+    [Key]
+    public int Id { get; set; }
+    [StringLength(50)]
+    public string FirstName { get; set; } = null!;
+    [StringLength(50)]
+    public string LastName { get; set; } = null!;
+    [StringLength(100)]
+    public string Email { get; set; } = null!;
+    [Column(TypeName = "char(13)")]
+    public string PhoneNumber { get; set; } = null!;
+    public ICollection<SituationEntity> Situations { get; set; } = new HashSet<SituationEntity>();
 
-        public string LastName { get; set; } = string.Empty;
-
-        public string Email { get; set; } = string.Empty;
-        public string? PhoneNumber { get; set; }
-
-        public int AddressId { get; set; }
-
-
-    }
 }
