@@ -12,13 +12,12 @@ internal class MenuCustomerServiceEmployee
         {
             foreach (Situations situations in situationss)
             {
-                Console.WriteLine($"Ärendenummer: {situations.Id}");
-                Console.WriteLine($"Beskrivning: {situations.Description}");
-                Console.WriteLine($"SkapadTid: {situations.CreatedTime}");
-                Console.WriteLine($"Situation: {situations.Condition}");
-                Console.WriteLine($"Namn: {situations.FirstName} {situations.LastName}");
-                Console.WriteLine($"E-post: {situations.Email}");
-                Console.WriteLine($"Telefonnummer: {situations.PhoneNumber}");
+                Console.WriteLine($"\n# Ärendenummer: {situations.Id}");
+                Console.WriteLine($"- Beskrivning: {situations.Description}");
+                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.CreatedTime}");
+                Console.WriteLine($"- Namn: {situations.FirstName + " " + situations.LastName}");
+                Console.WriteLine($"- Kund-info: {situations.Email + " ; tel: " + situations.PhoneNumber}");
+                Console.WriteLine("-----------------------------------------------------------");
                 Console.WriteLine("");
             }
         }
@@ -26,31 +25,31 @@ internal class MenuCustomerServiceEmployee
 
     public async Task ListSpecificSituationAsync()
     {
-        Console.Write("Ange ID-ärende: ");
+        Console.Write("\n -Ange ärendenummer: ");
         var id = Console.ReadLine();
         if (!String.IsNullOrEmpty(id))
         {
             var situations = await CustomerServiceEmployee.GetAsync(int.Parse(id));
             if (situations != null)
             {
-                Console.WriteLine($"Ärendenummer: {situations.Id}");
-                Console.WriteLine($"Beskrivning: {situations.Description}");
-                Console.WriteLine($"SkapadTid: {situations.CreatedTime}");
-                Console.WriteLine($"Situation: {situations.Condition}");
-                Console.WriteLine($"Namn: {situations.FirstName} {situations.LastName}");
-                Console.WriteLine($"E-post: {situations.Email}");
-                Console.WriteLine($"Telefonnummer: {situations.PhoneNumber}");
+                Console.WriteLine("\n********************************************************");
+                Console.WriteLine($"- Ärendenummer: {situations.Id}");
+                Console.WriteLine($"- Beskrivning: {situations.Description}");
+                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.CreatedTime}");
+                Console.WriteLine($"- Namn: {situations.FirstName + " " + situations.LastName}");
+                Console.WriteLine($"- Kund-info: {situations.Email + " ; tel: " + situations.PhoneNumber}\n");
+                Console.WriteLine("********************************************************");
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine($"Inget ärende med den angivna e-post {id} hittades.");
+                Console.WriteLine($"\n -Inget ärende träffat med den ärendenummer: {id} .");
                 Console.WriteLine("");
             }
         }
         else
         {
-            Console.WriteLine($"Ange ärende-ID.");
+            Console.WriteLine($"\n - Ange ärendenummer!");
             Console.WriteLine("");
         }
 
@@ -58,7 +57,7 @@ internal class MenuCustomerServiceEmployee
 
     public async Task UpdateSpecificSituationConditionAsync()
     {
-        Console.WriteLine("Ange det ID-ärende som vill du ha att uppdatera ");
+        Console.WriteLine("\n - Ange det ärendenummer som vill du ha att uppdatera: ");
         var id = Console.ReadLine();
         if (!String.IsNullOrEmpty(id))
         {
@@ -66,7 +65,7 @@ internal class MenuCustomerServiceEmployee
             var situations = await CustomerServiceEmployee.GetAsync(int.Parse(id));
             if (situations != null)
             {
-                Console.Write("Ange ny status (0=EjPåbörjad, 1=Pågående, 2=Avslutad):");
+                Console.Write("\n - Ange ny ärendestatus (0 = EjPåbörjad, 1 = Pågående, 2 = Avslutad): ");
                 var opt = Console.ReadLine();
                 if (opt == "0")
                     situations.Condition = "EjPåbörjad";
@@ -77,18 +76,18 @@ internal class MenuCustomerServiceEmployee
 
                 await CustomerServiceEmployee.UpdateAsync(situations);
 
-                Console.WriteLine("Status uppdaterad");
+                Console.WriteLine("\n - Status uppdaterad.");
             }
             else
             {
-                Console.WriteLine($"Kunde inte att hitta något ärende med den ID.");
+                Console.WriteLine($"\n - Kunde inte att hitta ärende med det nummer.");
                 Console.WriteLine("");
             }
 
         }
         else
         {
-            Console.WriteLine($"Ange ärende-ID.");
+            Console.WriteLine($" -Ange ärendenummer!");
             Console.WriteLine("");
         }
     }

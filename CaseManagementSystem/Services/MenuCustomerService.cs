@@ -10,13 +10,24 @@ internal class MenuCustomerService
         var customer = new Customers();
         var situations = new Situations();
 
-        Console.WriteLine("Felrapport: ");
+        Console.WriteLine("\n- Felrapport: ");
         situations.Description = Console.ReadLine() ?? "";
 
-        Console.WriteLine(DateTime.Now);
-        situations.CreatedTime = DateTime.Now;
+        Console.WriteLine("\n**************************************************************************************\n");
 
-        Console.Write("Ange ny status (0=EjPåbörjad, 1=Pågående, 2=Aslutad):");
+        Console.Write("- Förnamn: ");
+        customer.FirstName = Console.ReadLine() ?? "";
+
+        Console.Write("- Efternamn: ");
+        customer.LastName = Console.ReadLine() ?? "";
+
+        Console.Write("- E-post: ");
+        customer.Email = Console.ReadLine() ?? "";
+
+        Console.Write("- Telefonnummer: ");
+        customer.PhoneNumber = Console.ReadLine() ?? "";
+
+        Console.Write("- Ange ny ärendestatus (0 = EjPåbörjad, 1 = Pågående, 2 = Aslutad):");
         var opt = Console.ReadLine();
         if (opt == "0")
             situations.Condition = "EjPåbörjad";
@@ -25,24 +36,15 @@ internal class MenuCustomerService
         else if (opt == "2")
             situations.Condition = "Aslutad";
 
-        Console.Write("Förnamn: ");
-        customer.FirstName = Console.ReadLine() ?? "";
-
-        Console.Write("Efternamn: ");
-        customer.LastName = Console.ReadLine() ?? "";
-
-        Console.Write("E-post: ");
-        customer.Email = Console.ReadLine() ?? "";
-
-        Console.Write("Telefonnummer: ");
-        customer.PhoneNumber = Console.ReadLine() ?? "";
+        Console.WriteLine("\n - Ärendet skapades: " + DateTime.Now + "\n - Tack för den änmale, vi behandlar ditt ärende så fort vi kan!");
+        situations.CreatedTime = DateTime.Now;
 
         await CustomerService.SaveCustomerAsync(situations, customer);
     }
 
     public async Task ListSpecificCustomerSituationAsync()
     {
-        Console.Write("Ange din e-post: ");
+        Console.Write("\n- Ange din e-post: ");
         var email = Console.ReadLine();
         if (email != null)
         {
@@ -60,20 +62,20 @@ internal class MenuCustomerService
             else
             {
                 Console.Clear();
-                Console.WriteLine($"Inget ärende med den angivna e-post {email} hittades.");
+                Console.WriteLine($"\n - Inget ärende har träffat med den e-post: {email} .");
                 Console.WriteLine("");
             }
         }
         else
         {
-            Console.WriteLine($"Inget ID.");
+            Console.WriteLine($" - Inget info.");
             Console.WriteLine("");
         }
 
     }
     public async Task UpdateMyInfoSituationAsync()
     {
-        Console.Write("Ange din e-post: ");
+        Console.Write("\n-Ange din e-post: ");
         var email = Console.ReadLine();
         if (!string.IsNullOrEmpty(email))
         {
@@ -84,17 +86,6 @@ internal class MenuCustomerService
                 Console.WriteLine("Felrapport: ");
                 situations.Description = Console.ReadLine() ?? "";
 
-                Console.WriteLine(DateTime.Now);
-                situations.CreatedTime = DateTime.Now;
-
-                Console.Write("Ange ny status (0=EjPåbörjad, 1=Pågående, 2=Avslutad):");
-                var opt = Console.ReadLine();
-                if (opt == "0")
-                    situations.Condition = "EjPåbörjad";
-                else if (opt == "1")
-                    situations.Condition = "Pågående";
-                else if (opt == "2")
-                    situations.Condition = "Avslutad";
 
                 Console.Write("Förnamn: ");
                 customer.FirstName = Console.ReadLine() ?? "";
@@ -108,47 +99,37 @@ internal class MenuCustomerService
                 Console.Write("Telefonnummer: ");
                 customer.PhoneNumber = Console.ReadLine() ?? "";
 
+                Console.Write("Ange ny ärendestatus (0= EjPåbörjad, 1= Pågående, 2= Avslutad):");
+                var opt = Console.ReadLine();
+                if (opt == "0")
+                    situations.Condition = "EjPåbörjad";
+                else if (opt == "1")
+                    situations.Condition = "Pågående";
+                else if (opt == "2")
+                    situations.Condition = "Avslutad";
+
+                Console.WriteLine("\n -Ärendet uppdaterad : " + DateTime.Now + "\n -Tack för den info, vi återkommer så snart som möjligt!");
+                situations.CreatedTime = DateTime.Now;
+
+
                 await CustomerService.UpdateCustomerAsync(situations, customer);
 
                 Console.WriteLine("Ditt ärende uppdaterat.");
             }
             else
             {
-                Console.WriteLine($"Det finns inte ärende med detta ID.");
+                Console.WriteLine($"\n- Det finns inte ärende med detta E-post.");
                 Console.WriteLine("");
             }
 
         }
         else
         {
-            Console.WriteLine($"Inget ID.");
+            Console.WriteLine($"\n- Inget info.");
             Console.WriteLine("");
         }
     }
-    public async Task DeleteMySituationAsync()
-    {
-        Console.Write("Ange din @-Mail: ");
-        var email = Console.ReadLine();
-        if (!String.IsNullOrEmpty(email))
-        {
-            bool deleted = await CustomerService.DeleteCustomerAsync(email);
-
-            if (deleted)
-            {
-
-                Console.WriteLine("Ärende har raderat.");
-            }
-            else
-            {
-                Console.WriteLine("Det finns inte ärende med detta @-mail.");
-            }
-        }
-        else
-        {
-            Console.WriteLine($"Inget ID.");
-            Console.WriteLine("");
-        }
-    }
+    
 
     public async Task ShowCommentOnMySituationAsync()
     {
@@ -185,6 +166,31 @@ internal class MenuCustomerService
         else
         {
             Console.WriteLine("Ingen kommentar i denna ärende.");
+        }
+    }
+
+    public async Task DeleteMySituationAsync()
+    {
+        Console.Write("\n -Ange din @-Mail: ");
+        var email = Console.ReadLine();
+        if (!String.IsNullOrEmpty(email))
+        {
+            bool deleted = await CustomerService.DeleteCustomerAsync(email);
+
+            if (deleted)
+            {
+
+                Console.WriteLine("\n --Ärende har raderat !!.");
+            }
+            else
+            {
+                Console.WriteLine("\n - Det finns inte ärende med detta @-mail.");
+            }
+        }
+        else
+        {
+            Console.WriteLine($"\n -Inget info.");
+            Console.WriteLine("");
         }
     }
 }

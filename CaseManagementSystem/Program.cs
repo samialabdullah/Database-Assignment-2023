@@ -97,10 +97,10 @@ while (true)
     
     else
     {
-        Console.WriteLine("\n Ogiltig info. Vänligen försök igen.\n");
+        Console.WriteLine("\n - Ogiltig info. Vänligen försök igen.\n");
     }
 
-    Console.WriteLine("\n Tryck på valfri knapp för att fortsätta...!");
+    Console.WriteLine("\n - Tryck på valfri knapp för att fortsätta...!");
     Console.ReadLine();
 
 }
