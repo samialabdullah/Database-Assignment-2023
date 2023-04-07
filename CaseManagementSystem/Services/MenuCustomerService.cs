@@ -16,14 +16,14 @@ internal class MenuCustomerService
         Console.WriteLine(DateTime.Now);
         situations.CreatedTime = DateTime.Now;
 
-        Console.Write("Ange ny status (0=NotStarted, 1=InProgress, 2=Completed):");
+        Console.Write("Ange ny status (0=EjPåbörjad, 1=Pågående, 2=Aslutad):");
         var opt = Console.ReadLine();
         if (opt == "0")
-            situations.Condition = "NotStarted";
+            situations.Condition = "EjPåbörjad";
         else if (opt == "1")
-            situations.Condition = "InProgress";
+            situations.Condition = "Pågående";
         else if (opt == "2")
-            situations.Condition = "Completed";
+            situations.Condition = "Aslutad";
 
         Console.Write("Förnamn: ");
         customer.FirstName = Console.ReadLine() ?? "";
@@ -87,14 +87,14 @@ internal class MenuCustomerService
                 Console.WriteLine(DateTime.Now);
                 situations.CreatedTime = DateTime.Now;
 
-                Console.Write("Ange ny status (0=NotStarted, 1=InProgress, 2=Completed):");
+                Console.Write("Ange ny status (0=EjPåbörjad, 1=Pågående, 2=Avslutad):");
                 var opt = Console.ReadLine();
                 if (opt == "0")
-                    situations.Condition = "NotStarted";
+                    situations.Condition = "EjPåbörjad";
                 else if (opt == "1")
-                    situations.Condition = "InProgress";
+                    situations.Condition = "Pågående";
                 else if (opt == "2")
-                    situations.Condition = "Completed";
+                    situations.Condition = "Avslutad";
 
                 Console.Write("Förnamn: ");
                 customer.FirstName = Console.ReadLine() ?? "";

@@ -13,7 +13,7 @@ internal class SituationEntity
     [Required]
     public DateTime CreatedTime { get; set; } = DateTime.Now;
     [Required]
-    public string Condition { get; set; } = "NotStarted";
+    public string Condition { get; set; } = "EjPåbörjad";
 
     [Required]
     [ForeignKey(nameof(Customer))]
@@ -24,7 +24,7 @@ internal class SituationEntity
 
 public enum SituationCondition
 {
-    NotStarted,
-    InProgress,
-    Completed
+    EjPåbörjad,
+    Pågående,
+    Avslutad
 }

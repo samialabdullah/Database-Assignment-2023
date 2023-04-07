@@ -66,14 +66,14 @@ internal class MenuCustomerServiceEmployee
             var situations = await CustomerServiceEmployee.GetAsync(int.Parse(id));
             if (situations != null)
             {
-                Console.Write("Ange ny status (0=NotStarted, 1=InProgress, 2=Completed):");
+                Console.Write("Ange ny status (0=EjPåbörjad, 1=Pågående, 2=Avslutad):");
                 var opt = Console.ReadLine();
                 if (opt == "0")
-                    situations.Condition = "NotStarted";
+                    situations.Condition = "EjPåbörjad";
                 else if (opt == "1")
-                    situations.Condition = "InProgress";
+                    situations.Condition = "Pågående";
                 else if (opt == "2")
-                    situations.Condition = "Completed";
+                    situations.Condition = "Avslutad";
 
                 await CustomerServiceEmployee.UpdateAsync(situations);
 
