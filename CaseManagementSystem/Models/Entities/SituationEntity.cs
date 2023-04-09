@@ -11,7 +11,7 @@ internal class SituationEntity
     [Required]
     public string Description { get; set; } = null!;
     [Required]
-    public DateTime CreatedTime { get; set; } = DateTime.Now;
+    public DateTime Timing { get; set; } = DateTime.Now;
     [Required]
     public string Condition { get; set; } = "EjPåbörjad";
 

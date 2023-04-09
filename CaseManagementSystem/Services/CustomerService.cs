@@ -13,7 +13,7 @@ internal class CustomerService
         var _situationEntity = new SituationEntity
         {
             Description = situations.Description,
-            CreatedTime = DateTime.Now,
+            Timing = DateTime.Now,
             Condition = situations.Condition,
         };
 
@@ -41,7 +41,7 @@ internal class CustomerService
             {
                 Id = _situations.Id,
                 Description = _situations.Description,
-                CreatedTime = DateTime.Now,
+                Timing = DateTime.Now,
                 Condition = _situations.Condition,
                 FirstName = _situations.Customer.FirstName,
                 LastName = _situations.Customer.LastName,
@@ -61,8 +61,8 @@ internal class CustomerService
                 _situationEntity.Condition = situations.Condition;
             if (!string.IsNullOrEmpty(situations.Description))
                 _situationEntity.Description = situations.Description;
-            if (situations.CreatedTime != default(DateTime))
-                _situationEntity.CreatedTime = situations.CreatedTime;
+            if (situations.Timing != default(DateTime))
+                _situationEntity.Timing = situations.Timing;
             if (!string.IsNullOrEmpty(situations.FirstName) || !string.IsNullOrEmpty(situations.LastName) || !string.IsNullOrEmpty(situations.Email) || !string.IsNullOrEmpty(situations.PhoneNumber))
             {
                 var _customerEntity = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == customers.FirstName && x.LastName == customers.LastName && x.Email == customers.Email && x.PhoneNumber == customers.PhoneNumber);
@@ -105,7 +105,7 @@ internal class CustomerService
             {
                 Id = c.Id,
                 Text = c.Text,
-                CreatedAt = c.CreatedAt,
+                TimingAt = c.TimingAt,
                 SituationId = c.SituationId
 
             });

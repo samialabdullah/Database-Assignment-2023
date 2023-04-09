@@ -21,7 +21,7 @@ internal class CustomerServiceEmployee
             {
                 Id = _situations.Id,
                 Description = _situations.Description,
-                CreatedTime = DateTime.Now,
+                Timing = DateTime.Now,
                 Condition = _situations.Condition,
                 FirstName = _situations.Customer.FirstName,
                 LastName = _situations.Customer.LastName,
@@ -44,7 +44,7 @@ internal class CustomerServiceEmployee
             {
                 Id = _situations.Id,
                 Description = _situations.Description,
-                CreatedTime = DateTime.Now,
+                Timing = DateTime.Now,
                 Condition = _situations.Condition,
                 FirstName = _situations.Customer.FirstName,
                 LastName = _situations.Customer.LastName,
@@ -100,7 +100,7 @@ internal class CustomerServiceEmployee
             var commentEntity = new CommentEntity
             {
                 Text = comment.Text,
-                CreatedAt = DateTime.Now,
+                TimingAt = DateTime.Now,
                 SituationId = situationId,
                 CustomerServiceEmployeeId = customerServiceEmployeeEntity.Id
             };
@@ -119,7 +119,7 @@ internal class CustomerServiceEmployee
             {
                 Id = c.Id,
                 Text = c.Text,
-                CreatedAt = c.CreatedAt,
+                TimingAt = c.TimingAt,
                 SituationId = c.SituationId
 
             });

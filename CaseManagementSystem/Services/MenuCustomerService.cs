@@ -37,7 +37,7 @@ internal class MenuCustomerService
             situations.Condition = "Aslutad";
 
         Console.WriteLine("\n - Ärendet skapades: " + DateTime.Now + "\n - Tack för den änmale, vi behandlar ditt ärende så fort vi kan!");
-        situations.CreatedTime = DateTime.Now;
+        situations.Timing = DateTime.Now;
 
         await CustomerService.SaveCustomerAsync(situations, customer);
     }
@@ -51,13 +51,13 @@ internal class MenuCustomerService
             var situations = await CustomerService.GetCustomerAsync(email);
             if (situations != null)
             {
-                Console.WriteLine($"Ärendenummer: {situations.Id}");
-                Console.WriteLine($"Beskrivning: {situations.Description}");
-                Console.WriteLine($"SkapadTid: {situations.CreatedTime}");
-                Console.WriteLine($"Situation: {situations.Condition}");
-                Console.WriteLine($"Namn: {situations.FirstName} {situations.LastName}");
-                Console.WriteLine($"E-post: {situations.Email}");
-                Console.WriteLine($"Telefonnummer: {situations.PhoneNumber}");
+                Console.WriteLine("\n********************************************************");
+                Console.WriteLine($"- Ditt ärendenummer: {situations.Id}");
+                Console.WriteLine($"- Beskrivning: {situations.Description}");
+                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.Timing}");
+                Console.WriteLine($"- Namn: {situations.FirstName + " " + situations.LastName}");
+                Console.WriteLine($"- Dina-info: {situations.Email + " ; tel: " + situations.PhoneNumber}\n");
+                Console.WriteLine("\n********************************************************");
             }
             else
             {
@@ -83,23 +83,24 @@ internal class MenuCustomerService
             var situations = await CustomerService.GetCustomerAsync(email);
             if (situations != null)
             {
-                Console.WriteLine("Felrapport: ");
+                Console.WriteLine("\n- Felrapport: ");
                 situations.Description = Console.ReadLine() ?? "";
 
+                Console.WriteLine("\n########################################################");
 
-                Console.Write("Förnamn: ");
+                Console.Write("\n - Förnamn: ");
                 customer.FirstName = Console.ReadLine() ?? "";
 
-                Console.Write("Efternamn: ");
+                Console.Write(" - Efternamn: ");
                 customer.LastName = Console.ReadLine() ?? "";
 
-                Console.Write("E-post: ");
+                Console.Write(" - E-post: ");
                 customer.Email = Console.ReadLine() ?? "";
 
-                Console.Write("Telefonnummer: ");
+                Console.Write(" - Telefonnummer: ");
                 customer.PhoneNumber = Console.ReadLine() ?? "";
 
-                Console.Write("Ange ny ärendestatus (0= EjPåbörjad, 1= Pågående, 2= Avslutad):");
+                Console.Write("\n - Ange ny ärendestatus (0= EjPåbörjad, 1= Pågående, 2= Avslutad):");
                 var opt = Console.ReadLine();
                 if (opt == "0")
                     situations.Condition = "EjPåbörjad";
@@ -108,13 +109,15 @@ internal class MenuCustomerService
                 else if (opt == "2")
                     situations.Condition = "Avslutad";
 
-                Console.WriteLine("\n -Ärendet uppdaterad : " + DateTime.Now + "\n -Tack för den info, vi återkommer så snart som möjligt!");
-                situations.CreatedTime = DateTime.Now;
+                Console.WriteLine("\n########################################################");
+
+                Console.WriteLine("\n - Ärendet uppdaterad : " + DateTime.Now + "\n - Tack för den info, vi återkommer så snart som möjligt!");
+                situations.Timing = DateTime.Now;
 
 
                 await CustomerService.UpdateCustomerAsync(situations, customer);
 
-                Console.WriteLine("Ditt ärende uppdaterat.");
+                Console.WriteLine("\n + Ditt ärende uppdaterat.");
             }
             else
             {
@@ -133,23 +136,23 @@ internal class MenuCustomerService
 
     public async Task ShowCommentOnMySituationAsync()
     {
-        Console.Write("Ange ärendemail: ");
+        Console.Write("\n - Ange ärendemail: ");
         string email = Console.ReadLine() ?? "";
         var existingSituation = await CustomerService.GetCustomerAsync(email);
 
         if (existingSituation != null)
         {
-            Console.WriteLine($"Beskrivning: {existingSituation.Description}");
-            Console.WriteLine($"SkapadTid: {existingSituation.CreatedTime}");
-            Console.WriteLine($"Situation: {existingSituation.Condition}");
-            Console.WriteLine($"Kund namn: {existingSituation.FirstName} {existingSituation.LastName}");
-            Console.WriteLine($"Kund e-post: {existingSituation.Email}");
-            Console.WriteLine($"Kund Telefonnummer: {existingSituation.PhoneNumber}");
+            Console.WriteLine("\n########################################################");
+            Console.WriteLine($"\n - Beskrivning: {existingSituation.Description}");
+            Console.WriteLine($" - Situation och AnmälaTid: {existingSituation.Condition + " - " + existingSituation.Timing}");
+            Console.WriteLine($" - Namn: {existingSituation.FirstName + " " + existingSituation.LastName}");
+            Console.WriteLine($" - Dina-info: {existingSituation.Email + " ; tel: " + existingSituation.PhoneNumber}\n");
+            Console.WriteLine("########################################################");
             Console.WriteLine();
         }
         if (existingSituation == null)
         {
-            Console.WriteLine($"Inget ärende hittades med ID {email}");
+            Console.WriteLine($"\n - Inget ärende hittades med @-mail: {email}");
             return;
         }
         var situationWithComments = await CustomerService.CheckUpMySituationAsync(email);
@@ -158,14 +161,14 @@ internal class MenuCustomerService
         {
             foreach (var comment in situationWithComments)
             {
-                Console.WriteLine($"Kundtjänstmedarbetare kommentarer: {comment.Text} (posted on {comment.CreatedAt})");
+                Console.WriteLine($" + Kundtjänstmedarbetare kommentarer: {comment.Text} (posted on {comment.TimingAt})");
             }
 
             Console.WriteLine();
         }
         else
         {
-            Console.WriteLine("Ingen kommentar i denna ärende.");
+            Console.WriteLine(" - Ingen kommentar i denna ärende.");
         }
     }
 
@@ -189,7 +192,7 @@ internal class MenuCustomerService
         }
         else
         {
-            Console.WriteLine($"\n -Inget info.");
+            Console.WriteLine($"\n - Inget info.");
             Console.WriteLine("");
         }
     }

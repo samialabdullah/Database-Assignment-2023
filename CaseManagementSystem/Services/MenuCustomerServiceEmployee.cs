@@ -14,7 +14,7 @@ internal class MenuCustomerServiceEmployee
             {
                 Console.WriteLine($"\n# Ärendenummer: {situations.Id}");
                 Console.WriteLine($"- Beskrivning: {situations.Description}");
-                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.CreatedTime}");
+                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.Timing}");
                 Console.WriteLine($"- Namn: {situations.FirstName + " " + situations.LastName}");
                 Console.WriteLine($"- Kund-info: {situations.Email + " ; tel: " + situations.PhoneNumber}");
                 Console.WriteLine("-----------------------------------------------------------");
@@ -35,7 +35,7 @@ internal class MenuCustomerServiceEmployee
                 Console.WriteLine("\n********************************************************");
                 Console.WriteLine($"- Ärendenummer: {situations.Id}");
                 Console.WriteLine($"- Beskrivning: {situations.Description}");
-                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.CreatedTime}");
+                Console.WriteLine($"- Situation och AnmälaTid: {situations.Condition + " - " + situations.Timing}");
                 Console.WriteLine($"- Namn: {situations.FirstName + " " + situations.LastName}");
                 Console.WriteLine($"- Kund-info: {situations.Email + " ; tel: " + situations.PhoneNumber}\n");
                 Console.WriteLine("********************************************************");
@@ -125,7 +125,7 @@ internal class MenuCustomerServiceEmployee
         Comments comment = new Comments
         {
             Text = commentText,
-            CreatedAt = DateTime.Now
+            TimingAt = DateTime.Now
         };
 
         await CustomerServiceEmployee.AddCommentAsync(situationId, comment, customerServiceEmployee);
@@ -143,7 +143,7 @@ internal class MenuCustomerServiceEmployee
         {
             Console.WriteLine("\n############################################################");
             Console.WriteLine($"\n- Beskrivning: {existingSituation.Description}");
-            Console.WriteLine($"- Situation och AnmälaTid: {existingSituation.Condition + " - " + existingSituation.CreatedTime}");
+            Console.WriteLine($"- Situation och AnmälaTid: {existingSituation.Condition + " - " + existingSituation.Timing}");
             Console.WriteLine($"- Kund namn: {existingSituation.FirstName + " " + existingSituation.LastName}");
             Console.WriteLine($"- Kund-info: {existingSituation.Email + " ; tel: " + existingSituation.PhoneNumber}\n");
             Console.WriteLine("############################################################");
@@ -160,7 +160,7 @@ internal class MenuCustomerServiceEmployee
         {
             foreach (var comment in situationWithComments)
             {
-                Console.WriteLine($" + Kundtjänstmedarbetare kommentar: {comment.Text} ( {comment.CreatedAt} ).");
+                Console.WriteLine($" + Kundtjänstmedarbetare kommentar: {comment.Text} ( {comment.TimingAt} ).");
             }
 
             Console.WriteLine();
@@ -199,7 +199,7 @@ internal class MenuCustomerServiceEmployee
                 Comments _comment = new()
                 {
                     Text = commentText,
-                    CreatedAt = DateTime.Now
+                    TimingAt = DateTime.Now
                 };
 
                 await CustomerServiceEmployee.AddCommentAsync(situationId, _comment, customerServiceEmployee);
