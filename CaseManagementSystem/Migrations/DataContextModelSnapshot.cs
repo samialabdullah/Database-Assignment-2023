@@ -30,9 +30,6 @@ namespace CaseManagementSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("CustomerServiceEmployeeId")
                         .HasColumnType("int");
 
@@ -41,6 +38,9 @@ namespace CaseManagementSystem.Migrations
 
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimingAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -61,8 +61,8 @@ namespace CaseManagementSystem.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -96,8 +96,8 @@ namespace CaseManagementSystem.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -133,15 +133,15 @@ namespace CaseManagementSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timing")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
